@@ -1,0 +1,15 @@
+[3:23 PM] Tapas Kumar
+token 0xE52ea897eeBc36C5f71605983A86B47Ed6D97F53
+
+[3:24 PM] Tapas Kumar
+Single nft 0xc4BaE8Ea0FfA7e944DE0Cb5138E950D890A6B699
+
+[3:30 PM] Tapas Kumar
+single_market 0x7ad79A6e2A7d4bFdd0ce052260F6a12cF6d88158
+
+[3:32 PM] Tapas Kumar
+multiple nft 0x6F7885842d9579daD8aC3152B0009cA1E4694e6d
+
+[3:36 PM] Tapas Kumar
+multi_market 0x319710a8f7AF97b9c9118e284dE6195B4E9554d2
+
