@@ -8,9 +8,9 @@ import "@openzeppelin/contracts/utils/introspection/ERC165Checker.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./INFTMarketplace1155.sol";
-import "./ANFTMarketplace1155.sol";
-import "./AmountTransfer.sol";
+import "./interface/INFTMarketplace1155.sol";
+import "./Abstract/ANFTMarketplace1155.sol";
+import "./library/AmountTransfer.sol";
 
 contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
     using SafeMath for uint256;
@@ -49,13 +49,13 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
         bytes memory data = _data;
 
         _nftFixedSaleDetails(
-            _nftContractAddress, // nft address 
-            _fixedSale.erc20,  // erc 20 
-            _fixedSale.royaltyReciever,// any address 
-            _tokenId,// token id 
-            _fixedSale.amount, //5 
-            _fixedSale.salePrice,// price 50 
-            _fixedSale.royalty,// amount 2
+            _nftContractAddress,
+            _fixedSale.erc20,
+            _fixedSale.royaltyReciever,
+            _tokenId,
+            _fixedSale.amount,
+            _fixedSale.salePrice,
+            _fixedSale.royalty,
             data
         );
     }
@@ -353,7 +353,7 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
 
     function withdrawBid(address _nftContractAddress, uint256 _tokenId)
         external
-        //isAuctionOver(_nftContractAddress, _tokenId)
+        isAuctionOver(_nftContractAddress, _tokenId)
     {
         require(
             msg.sender !=

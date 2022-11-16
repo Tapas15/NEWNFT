@@ -6,9 +6,9 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./INFTMarketplace.sol";
-import "./ANFTMarketplace.sol";
-import "./AmountTransfer.sol";
+import "./interface/INFTMarketplace.sol";
+import "./Abstract/ANFTMarketplace.sol";
+import "./library/AmountTransfer.sol";
 
 contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
     using SafeMath for uint256;
@@ -152,28 +152,6 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
             _updateSalePrice
         );
     }
-    
-    //Function to buyAreveaToken from Arevea token owner a required amount            
-    function buyAreveaToken(address _erc20_contract, address _buyer, uint256 _amount) public returns (bool){                
-        address  ERC20_contract= _erc20_contract;           
-        require(_amount>0, "zero Amount is not accepted");
-        IERC20(ERC20_contract).transferFrom(owner,_buyer, _amount);           
-        emit AreveaTokenBuy(_buyer, owner, _amount);
-
-    return(true);           
-
-   }            
-   //Function to SellAreveaToken            
-    function Sell_AreveaToken(address _erc20_contract, address seller, uint256 _amount) public returns (bool){            
-        address  ERC20_contract= _erc20_contract;         
-        require(_amount>0, "zero Amount is not accepted");
-        IERC20(ERC20_contract).transferFrom(seller, owner, _amount);          
-        emit AreveaTokenSell(seller, owner, _amount);
-
-    return(true);         
-
-  }  
-
 
     // NFT AUCTION SALE
 
