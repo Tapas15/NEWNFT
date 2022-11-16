@@ -27,7 +27,7 @@ contract ERC1155 is Context, ERC165,IERC1155{
 
     // Mapping from account to operator approvals
     mapping (address => mapping(address => bool)) private _operatorApprovals;
-    string public tokenURIPrefix = "https://gateway.pinata.cloud/ipfs/";
+    string public tokenURIPrefix = "";
 
     // Optional mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;
@@ -50,7 +50,6 @@ contract ERC1155 is Context, ERC165,IERC1155{
         _registerInterface(_INTERFACE_ID_ERC1155_METADATA_URI);
     }
 
-    
     function name() public view virtual override returns (string memory) {
         return _name;
     }
@@ -123,6 +122,13 @@ contract ERC1155 is Context, ERC165,IERC1155{
     function _exists(uint256 tokenId) internal view virtual returns (bool) {
         return _tokenOwners.contains(tokenId);
     }
+    function totalSupply() external view virtual returns (uint256) {
+        return _tokenOwners.length();   
+    }
+
+    //  function totalNFTSupply(uint256 tokenId) external view virtual returns (uint256) {
+    //     return _tokenOwners[tokenId];  
+    // }
 
     /**
         @notice Get the balance of an account's Tokens.
@@ -292,7 +298,7 @@ contract ERC1155 is Context, ERC165,IERC1155{
 
 
 
-    /**
+    /***
         * @dev Internal function to mint a new token.
         * Reverts if the given token ID already exists.
         * @param tokenId uint256 ID of the token to be minted
@@ -301,24 +307,20 @@ contract ERC1155 is Context, ERC165,IERC1155{
         * @param _fee uint256 royalty of the token to be minted
     */
 
-    function mint(uint256 id, uint256 amount) internal {
-        _mint(msg.sender, id, amount, '');
+     function _mint(uint256 tokenId, uint256 _supply, string memory _uri, uint256 _fee) internal {
+        require(!_exists(tokenId), "ERC1155: token already minted");
+        require(_supply != 0, "Supply should be positive");
+        require(bytes(_uri).length > 0, "uri should be set");
+
+        creators[tokenId] = msg.sender;
+        _tokenOwners.set(tokenId, msg.sender);
+        _royaltyFee[tokenId] = _fee;
+        _balances[tokenId][msg.sender] = _supply;
+        _setTokenURI(tokenId, _uri);
+
+        emit TransferSingle(msg.sender, address(0x0), msg.sender, tokenId, _supply);
+        emit URI(_uri, tokenId);
     }
-
-    // function _mint(uint256 tokenId, uint256 _supply, string memory _uri, uint256 _fee) internal {
-    //     require(!_exists(tokenId), "ERC1155: token already minted");
-    //     require(_supply != 0, "Supply should be positive");
-    //     require(bytes(_uri).length > 0, "uri should be set");
-
-    //     creators[tokenId] = msg.sender;
-    //     _tokenOwners.set(tokenId, msg.sender);
-    //     _royaltyFee[tokenId] = _fee;
-    //     _balances[tokenId][msg.sender] = _supply;
-    //     _setTokenURI(tokenId, _uri);
-
-    //     emit TransferSingle(msg.sender, address(0x0), msg.sender, tokenId, _supply);
-    //     emit URI(_uri, tokenId);
-    // }
 
     /**
         * @dev version of {_mint}.
