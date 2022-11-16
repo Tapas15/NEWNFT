@@ -106,6 +106,7 @@ interface INFTMarketplace {
         uint256 tokenId,
         address bidClaimer
     );
-
+    event AreveaTokenSell(address seller, address owner, uint256 _amount);
+    event AreveaTokenBuy(address _buyer, address owner, uint256 _amount);
     event UpdateOwner(address oldAddress, address newAddress);
 }
