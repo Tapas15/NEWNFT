@@ -53,7 +53,7 @@ contract NFT is ERC721 {
 
     function createNFT(string memory tokenURI, uint256 fee) external returns (uint256) {
       //  require(!usedNonce[sign.nonce], "Nonce : Invalid Nonce");
-        require(!tokenURIs[tokenURI],"Minting: Duplicate Minting");
+      //require(!tokenURIs[tokenURI],"Minting: Duplicate Minting");
       //  usedNonce[sign.nonce] = true;
         uint256 newItemId = tokenCounter;
       //  verifySign(tokenURI, msg.sender, sign);
