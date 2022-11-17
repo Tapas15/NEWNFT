@@ -35,6 +35,36 @@ Both Single and Multiple has Separate Marketplace to buy sell and trade nft in m
 
 Lazy minting is different where the NFT is once minted all creatrion and transaction cost of Blockchain is burn by the buyer itself. 
 
+| 1) Srial no | contract        | function                               | parameter                                               |
+| ----------- | --------------- | -------------------------------------- | ------------------------------------------------------- |
+| 1           | Single\_nft 721 | approve                                | 1st - Contract adress , 2nd tokenid                     |
+|             |                 | Burn                                   | tokenid                                                 |
+|             |                 | createNFT                              | 1st -TokenURI , 2nd Fee                                 |
+|             |                 | safeTransferFrom                       | 1st From -address 2nd -To Address 3rd -tokenid          |
+|             |                 | safeTransferFrom                       | 1st From -address 2nd -To Address 3rd -tokenid 4th data |
+|             |                 | setApproveforAll                       | 1st - operator adddress ,2nd Approve bool               |
+|             |                 | setBaseURI                             | 1st Base uri                                            |
+|             |                 | TransferFrom                           | 1st From -address 2nd -To Address 3rd -tokenid          |
+|             |                 | TransferOwnsership                     | New owner address                                       |
+|             |                 |                                        |                                                         |
+|             |                 | Balance of address of owner and others | Owner addres                                            |
+|             |                 | baseURI                                |                                                         |
+|             |                 | GetApproved                            | tokenid                                                 |
+|             |                 | GetCreator                             | tokenid                                                 |
+|             |                 | ISApproveforAll                        | 1st - operator adddress ,2nd Approve bool               |
+|             |                 | name                                   |                                                         |
+|             |                 | owner                                  |                                                         |
+|             |                 | ownerof                                | tokenid                                                 |
+|             |                 | royaltyfee                             | tokenid                                                 |
+|             |                 | supportsinterface                      | byres4                                                  |
+|             |                 | symbol                                 |                                                         |
+|             |                 | tokenbyIndex                           | index                                                   |
+|             |                 | tokenCounter                           |                                                         |
+|             |                 | tokenbyownerbyindex                    | 1)owner2) index                                         |
+|             |                 | tokenURI                               | tokenid                                                 |
+|             |                 | totalSupply                            |                                                         |
+
+
 
 
 
