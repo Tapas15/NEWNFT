@@ -63,8 +63,8 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |             |                 | tokenbyownerbyindex                    | 1)owner2) index                                         |
 |             |                 | tokenURI                               | tokenid                                                 |
 |             |                 | totalSupply                            |                                                         |
-| 1) Srial no | Multi\_nft\_1155 |                       |                                                      |
-| ----------- | ---------------- | --------------------- | ---------------------------------------------------- |
+|             | Multi\_nft\_1155 |                       |                                                      |
+|             | ---------------- | --------------------- | ---------------------------------------------------- |
 |             |                  | burn                  | 1)tokenid 2) supply in unit                          |
 |             |                  | burnBatch             | 1)tokenid 2) amount                                  |
 |             |                  | createMultiple        | 1)uri2)Supplier3)Fee                                 |
