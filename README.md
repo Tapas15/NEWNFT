@@ -136,7 +136,7 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |     |                | nftSaleStatus        | 1)Address 2)units                                                                                                                           |  |  |
 |     |                | onERC721Received     | 1)Address 2)from3)uint4)bytes                                                                                                               |  |  |
 |     |                | owner                |                                                                                                                                             |  |  |
-|     |                | userBidPriceOnNFT    | 1)Address2)units3)Address                                                                                                                   |  |  |                                                                                           
+|     |                | userBidPriceOnNFT    | 1)Address2)units3)Address                                                                                                                                                                                                   
 | 1)5 | NFT Market 1155 |                          |                                                                          |  |
 | --- | --------------- | ------------------------ | ------------------------------------------------------------------------ |  |
 |     |                 | \_cancelAuctionSale      | 1)\_nftContractAddress: 2) \_tokenId:                                    |  |
