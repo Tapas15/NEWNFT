@@ -213,14 +213,17 @@ Sources and Address:<br>
 
 AreveaToken, SingleNFT &amp; Multiple NFT with Market and Bid functions 
 link to Arevea ERC20 REadme - https://github.com/Tapas15/ERC20/blob/main/README.md
+All link of AVAX network
 
-json Market file- link https://github.com/Tapas15/Arevea-NFT-Market/blob/main/MULTI-NFT/contracts/artifacts/MarketPlace.json
+Arevea token https://testnet.snowtrace.io/token/0x2de1cC902c79Ee6CCb6138Fb315846A46BECB716
 
-market place link - https://github.com/Tapas15/Arevea-NFT-Market/blob/main/MULTI-NFT/contracts/MarketPlace.sol
+Single nft https://testnet.snowtrace.io/address/0x87392f90122909B3201A9Dbf88251df1A4dA68E8
 
-market place contract link- https://rinkeby.etherscan.io/address/0x92dcd49991cd55ab039abd077e0f97573378d89d
+Single mkt https://testnet.snowtrace.io/address/0xdBfDfA128662bBE5e2eb03E1Fd33E5C0Cc684011
 
-market contract address- 0x92dCD49991CD55ab039aBd077e0F97573378D89D
+multi_nft https://testnet.snowtrace.io/address/0xAf4cE7aa8fe84aDA55a84A8631F8893EE7Fbf7E8
+
+multi_mkt https://testnet.snowtrace.io/address/0x4939E19CDfd09e61943E6cDf5FC7b0572aCbCbc0
 
 
 ### Disclaimer 
