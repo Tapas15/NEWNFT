@@ -108,8 +108,35 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |     |                      | owner             |                                                |
 |     |                      | symbol            |                                                |
 |     |                      | totalSupply       |                                                |
+| 1)4 | NFT Market 721 |                      |                                                                                                                                             |  |
+| --- | -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |  |
+|     |                | \_cancelAuctionSale  | 1)\_nftContractAddress: 2) \_tokenId:                                                                                                       |  |
+|     |                | buyAreveToken        | 1)erc20 address2)\_buyer3)\_amount                                                                                                          |  |
+|     |                | buyFromFixedSale     | 1)nft contract address  2)tokenid 3)amount                                                                                                  |  |
+|     |                | cancelFixedsale      | 1)nft contract address  2)tokenid                                                                                                           |  |
+|     |                | createNftAuctionSale | 1) \_nftContractAddress: 2) \_erc20: Address 3)\_royaltyReciever: 4)\_royalty5) \_tokenid 6)Auction start:7)Auction\_end:8)minPrice<br><br> |  |
+|     |                | makeBid              | 1)\_nftContractAddress:2) \_tokenId:<br>3)\_bidPrice                                                                                        |  |
+|     |                | nftFixedSale         | 1)nft contract address 2)erc20 3)Royalty4)tokenid 5)saleprice                                                                               |
+|     |                | Sell\_Areveatoekn    | 1)erc20 address2)\_seller3)\_amount                                                                                                         |  |
+|     |                | set\_maketFee        | 1)maketFee                                                                                                                                  |  |
+|     |                | set\_Owner           | 1)Owner\_address                                                                                                                            |  |
+|     |                | settleAuction        | 1)\_nftContractAddress 2)\_tokenId:                                                                                                         |  |
+|     |                | updateFixedSalePrice | 1)nft contact address 2)token id 3) updated sale price                                                                                      |
+|     |                | updateTheBidPrice    | 1)nft contact address 2)token id 3) updated Bid price                                                                                       |
+|     |                | nftSaleStatus        | 1)address2)amount                                                                                                                           |  |
+|     |                | withdrawBid          | 1)nft\_addres2)tokenid                                                                                                                      |  |
+|     |                | onERC721Received     | 1)address2)address3)unit4)bytes                                                                                                             |  |
+|     |                | getAuctionSellNFT    | <br>
 
-
+<br>                                                                                                                                  |  |  |
+|     |
+|     |                | getFixeSale          | 1)nft\_address2)tokenid                                                                                                                     |  |
+|     |                | getNftFixedSale      |                                                                                                                                             |  |
+|     |                | makeFee              |                                                                                                                                             |  |
+|     |                | nftSaleStatus        | 1)Address 2)units                                                                                                                           |  |
+|     |                | onERC721Received     | 1)Address 2)from3)uint4)bytes                                                                                                               |  |
+|     |                | owner                |                                                                                                                                             |  |
+|     |                | userBidPriceOnNFT    | 1)Address2)units3)Address                                                                                                                   |  |
 
 Sources and Address:<br>
 
