@@ -120,23 +120,21 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |     |                | Sell\_Areveatoekn    | 1)erc20 address2)\_seller3)\_amount                                                                                                         |  |
 |     |                | set\_maketFee        | 1)maketFee                                                                                                                                  |  |
 |     |                | set\_Owner           | 1)Owner\_address                                                                                                                            |  |
-|     |                | settleAuction        | 1)\_nftContractAddress 2)\_tokenId:                                                                                                         |  |
-|     |                | updateFixedSalePrice | 1)nft contact address 2)token id 3) updated sale price                                                                                      |
+|     |                | settleAuction        | 1)\_nftContractAddress 2)\_tokenId:                                                                                                        
+|     |                | updateFixedSalePrice | 1)nft contact address 2)token id 3) updated sale price                                                                                       |
 |     |                | updateTheBidPrice    | 1)nft contact address 2)token id 3) updated Bid price                                                                                       |
-|     |                | nftSaleStatus        | 1)address2)amount                                                                                                                           |  |
+|     |                | nftSaleStatus        | 1)address2)amount                                                                                                                           |   
 |     |                | withdrawBid          | 1)nft\_addres2)tokenid                                                                                                                      |  |
 |     |                | onERC721Received     | 1)address2)address3)unit4)bytes                                                                                                             |  |
-|     |                | getAuctionSellNFT    | <br>
-
-<br>                                                                                                                                  |  |  |
-|     |
+|     |                | getAuctionSellNFT    |  
+|     |         |  |
 |     |                | getFixeSale          | 1)nft\_address2)tokenid                                                                                                                     |  |
 |     |                | getNftFixedSale      |                                                                                                                                             |  |
 |     |                | makeFee              |                                                                                                                                             |  |
 |     |                | nftSaleStatus        | 1)Address 2)units                                                                                                                           |  |
 |     |                | onERC721Received     | 1)Address 2)from3)uint4)bytes                                                                                                               |  |
 |     |                | owner                |                                                                                                                                             |  |
-|     |                | userBidPriceOnNFT    | 1)Address2)units3)Address                                                                                                                   |  |
+|     |                | userBidPriceOnNFT    | 1)Address2)units3)Address                                                                                                                   
 
 Sources and Address:<br>
 
