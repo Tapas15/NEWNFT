@@ -63,7 +63,7 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |             |                 | tokenbyownerbyindex                    | 1)owner2) index                                         |
 |             |                 | tokenURI                               | tokenid                                                 |
 |             |                 | totalSupply                            |                                                         |
-|             | Multi\_nft\_1155 |                       |                                                      |
+|2            | Multi\_nft\_1155 |                       |                                                      |
 |             | ---------------- | --------------------- | ---------------------------------------------------- |
 |             |                  | burn                  | 1)tokenid 2) supply in unit                          |
 |             |                  | burnBatch             | 1)tokenid 2) amount                                  |
@@ -86,7 +86,28 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |             |                  | tokenURI              | tokenid                                              |
 |             |                  | tokenURIPrifix call   |                                                      |
 |             |                  | totalSupply           |                                                      |
-
+|   3 | Arevea\_token\_ERC20 |                   |                                                |
+| --- | -------------------- | ----------------- | ---------------------------------------------- |
+|     |                      | approve           | 1)spender address 2) amount                    |
+|     |                      | burn              | 1)amount                                       |
+|     |                      | burnfrom          | 1)address2)amount                              |
+|     |                      | decreaseAllowance | 1)spender address 2) substractedValue          |
+|     |                      | increaseAllowance | 1)spender2)AddedValue                          |
+|     |                      | mint              | 1)account 2)amount                             |
+|     |                      | renounce owner    | to cancel ownership                            |
+|     |                      | transfer          | 1)to address 2)amount                          |
+|     |                      | tranferFrom       | 1st - from adddress ,2nd to address 3rd amount |
+|     |                      | transferOwnership | New owner address                              |
+|     |                      | allowance         | 1)owner 2)spender                              |
+|     |                      | balancof          | accont address                                 |
+|     |                      | decimals          |                                                |
+|     |                      | DECIMALS          |                                                |
+|     |                      | INITIALS\_SUPPLY  |                                                |
+|     |                      | Maximum\_supply   |                                                |
+|     |                      | name              |                                                |
+|     |                      | owner             |                                                |
+|     |                      | symbol            |                                                |
+|     |                      | totalSupply       |                                                |
 
 
 
