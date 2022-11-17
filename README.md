@@ -63,7 +63,29 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |             |                 | tokenbyownerbyindex                    | 1)owner2) index                                         |
 |             |                 | tokenURI                               | tokenid                                                 |
 |             |                 | totalSupply                            |                                                         |
-
+| 1) Srial no | Multi\_nft\_1155 |                       |                                                      |
+| ----------- | ---------------- | --------------------- | ---------------------------------------------------- |
+|             |                  | burn                  | 1)tokenid 2) supply in unit                          |
+|             |                  | burnBatch             | 1)tokenid 2) amount                                  |
+|             |                  | createMultiple        | 1)uri2)Supplier3)Fee                                 |
+|             |                  | mintBatch             | 1)to2)tokenid3)amounts4)data                         |
+|             |                  | safeBatchTransferFrom | 1)from address2)to address3) tokenid 4)amount 5)data |
+|             |                  | safeBatchTransferFrom | 1)from address2)to address3) tokenid 4)amount 5)data |
+|             |                  | setApproveforAll      | 1st - operator adddress ,2nd Approve bool            |
+|             |                  | setBaseURI            | baseURI                                              |
+|             |                  | TransferOwnsership    | New owner address                                    |
+|             |                  | balanceOf             | 1)account 2) tokenid                                 |
+|             |                  | balanceOfBatch        | 1)accunts 2)ids                                      |
+|             |                  | getCreator            | tokenid                                              |
+|             |                  | ISApproveforAll       | 1)accunts 2)operators                                |
+|             |                  | name                  |                                                      |
+|             |                  | owner                 |                                                      |
+|             |                  | Royaltyfee            | tokenid                                              |
+|             |                  | supportsInterface     | bytes                                                |
+|             |                  | symbol                |                                                      |
+|             |                  | tokenURI              | tokenid                                              |
+|             |                  | tokenURIPrifix call   |                                                      |
+|             |                  | totalSupply           |                                                      |
 
 
 
