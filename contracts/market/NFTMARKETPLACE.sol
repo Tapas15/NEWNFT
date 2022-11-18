@@ -9,20 +9,35 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./interface/INFTMarketplace.sol";
 import "./Abstract/ANFTMarketplace.sol";
 import "./library/AmountTransfer.sol";
-
+    /**
+        @notice NFTMarketplace is INFTMarketplace, ANFTMarketplace  .
+        @param owner  The address of the contract owner
+        @makerFee - platform fee of the market at initial deployement
+     */
 contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
     using SafeMath for uint256;
-
+    /**
+        initial constructor takes owner and platform fee as input
+     **/
     constructor(address _owner, uint256 _makerFee) {
         owner = _owner;
         makerFee = _makerFee;
     }
 
-    // owner Function
+    /**
+        @notice Get the marketFee.
+        @param tokenId  The Owner only can set makerfee
+        @return         Requested amount makerfee
+     */
 
     function setMakerFee(uint256 _makerFee) external onlyOwner {
         makerFee = _makerFee;
     }
+     /**
+        @notice Owner can change the contract ownership.
+        @param tokenId  The Owner only can make changes 
+        @return         Update ownership of the contrct 
+     */
 
     function setOwner(address _owner) external onlyOwner {
         owner = _owner;
