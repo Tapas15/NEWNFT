@@ -46,6 +46,11 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
 
     // NFT FIXED SALE
 
+       /**
+        @notice Function to buyFromFixedSale
+        @param buyFromFixedSale once nft is in fixed sale using this function to buy form market
+     */
+
     function buyFromFixedSale(
         address _nftContractAddress,
         uint256 _tokenId,
@@ -86,6 +91,11 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
         );
     }
 
+     /**
+        @notice Function to cancelFixedsale
+        @param cancelFixedsale once nft is in fixed sale using this function to cancel sell
+     */
+
     function cancelFixedsale(address _nftContractAddress, uint256 _tokenId)
         external
         isNftInFixedSale(_nftContractAddress, _tokenId)
@@ -103,6 +113,10 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
 
         emit CancelNftFixedSale(_nftContractAddress, msg.sender, _tokenId);
     }
+    /**
+        @notice Function to nftFixedSale
+        @param nftFixedSale this function to create nft fixedsale by putting nft details
+     */
 
     function nftFixedSale(
         address _nftContractAddress,
@@ -147,7 +161,10 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
             block.timestamp
         );
     }
-
+    /**
+        @notice Function to updateFixedSalePrice
+        @param updateFixedSalePrice this function to updatesale price of nft 
+     */
     function updateFixedSalePrice(
         address _nftContractAddress,
         uint256 _tokenId,
@@ -169,7 +186,10 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
     }
 
     // NFT AUCTION SALE
-
+    /**
+        @notice Function to createNftAuctionSale
+        @param createNftAuctionSale this function to create Auction sale  
+     */
     function createNftAuctionSale(
         address _nftContractAddress,
         address _erc20,
@@ -197,7 +217,11 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
             _minPrice
         );
     }
-
+     /**
+        @notice Function to _cancelAuctionSale
+        @param _cancelAuctionSale this function to cancel auction sale during auction  
+     */
+ 
     function _cancelAuctionSale(address _nftContractAddress, uint256 _tokenId)
         external
         isNftInAuctionSale(_nftContractAddress, _tokenId)
@@ -219,6 +243,11 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
 
         emit CancelNftAuctionSale(_nftContractAddress, _tokenId, msg.sender);
     }
+
+     /**
+        @notice Function to makeBid
+        @param makeBid this function to make bid during auction 
+     */
 
     function makeBid(
         address _nftContractAddress,
@@ -288,7 +317,10 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
             nftContractAuctionSale[_nftContractAddress][_tokenId].nftSeller
         );
     }
-
+     /**
+        @notice Function to updateTheBidPrice
+        @param updateTheBidPrice this function to updateTheBidPrice during auction 
+     */
     function updateTheBidPrice(
         address _nftContractAddress,
         uint256 _tokenId,
@@ -338,7 +370,11 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
             finalBidPrice,
             msg.sender
         );
-    }
+    } 
+     /**
+        @notice Function to withdrawBid
+        @param updateTheBidPrice this function to withdrawBid 
+     */
 
     function withdrawBid(address _nftContractAddress, uint256 _tokenId)
         external
@@ -372,11 +408,18 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
     }
 
     //view function
+    /**
+        @notice its a view function to getAuctionSaleNFT
+        @param updateTheBidPrice this function to view nft details 
+     */
 
     function getAuctionSaleNFT() external view returns (SaleInfo[] memory) {
         return auctionSaleNFT;
     }
-
+      /**
+        @notice its a view function to getFixedSale
+        @param getFixedSale this function to view nft fixedsale details 
+     */
     function getFixedSale(address _nftContractAddress, uint256 _tokenId)
         external
         view
@@ -384,11 +427,17 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
     {
         return nftContractFixedSale[_nftContractAddress][_tokenId];
     }
-
+     /**
+        @notice its a view function to getFixedSaleNFT
+        @param getFixedSaleNFTthis function to view nft getFixedSaleNFT details 
+     */
     function getFixedSaleNFT() external view returns (SaleInfo[] memory) {
         return fixedSaleNFT;
     }
-
+     /**
+        @notice its a view function to getNftAuctionSaleDetails
+        @param getNftAuctionSaleDetails function to view nft getNftAuctionSaleDetails details 
+     */
     function getNftAuctionSaleDetails(
         address _nftContractAddress,
         uint256 _tokenId

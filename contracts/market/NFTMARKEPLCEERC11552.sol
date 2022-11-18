@@ -12,19 +12,36 @@ import "./interface/INFTMarketplace1155.sol";
 import "./Abstract/ANFTMarketplace1155.sol";
 import "./library/AmountTransfer.sol";
 
+  /**
+        @notice NFTMarketplace is INFTMarketplace1155, ANFTMarketplace1155  .
+        @param owner  The address of the contract owner
+        @makerFee - platform fee of the market at initial deployement
+     */
+
 contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
     using SafeMath for uint256;
-
+    /**
+        initial constructor takes owner and platform fee as input
+    **/
     constructor(address _owner, uint256 _makerFee) {
         owner = _owner;
         makerFee = _makerFee;
     }
-
-    // owner Function
+     /**
+        @notice Get the marketFee.
+        @param tokenId  The Owner only can set makerfee
+        @return         Requested amount makerfee
+     */
 
     function setMakerFee(uint256 _makerFee) external onlyOwner {
         makerFee = _makerFee;
     }
+
+     /**
+        @notice Owner can change the contract ownership.
+        @param tokenId  The Owner only can make changes 
+        @return         Update ownership of the contrct 
+     */
 
     function setOwner(address _owner) external onlyOwner {
         owner = _owner;
@@ -32,6 +49,11 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
     }
 
     // NFT FIXED SALE
+
+      /**
+        @notice Function to nftFixedSale
+        @param nftFixedSale this function to create nft fixedsale by putting nft details
+     */
 
     function nftFixedSale(
         FixedSale memory fixedSale,
@@ -59,6 +81,10 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
             data
         );
     }
+     /**
+        @notice Function to cancelFixedsale
+        @param cancelFixedsale once nft is in fixed sale using this function to cancel sell
+     */
 
     function cancelFixedsale(
         address _nftContractAddress,
@@ -101,6 +127,10 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
 
         emit CancelNftFixedSale(_nftContractAddress, msg.sender, _tokenId);
     }
+      /**
+        @notice Function to updateFixedSalePrice
+        @param updateFixedSalePrice this function to updatesale price of nft 
+     */
 
     function updateFixedSalePrice(
         address _nftContractAddress,
@@ -128,6 +158,11 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
             _updateSalePrice
         );
     }
+
+       /**
+        @notice Function to buyFromFixedSale
+        @param buyFromFixedSale once nft is in fixed sale using this function to buy form market
+     */
 
     function buyFromFixedSale(
         address _nftContractAddress,
@@ -172,6 +207,11 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
     }
 
     // NFT AUCTION SALE
+
+    /**
+        @notice Function to createNftAuctionSale
+        @param createNftAuctionSale this function to create Auction sale  
+     */
 
     function createNftAuctionSale(
         Auction memory _auction,
@@ -294,7 +334,10 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
             msg.sender
         );
     }
-
+    /**
+        @notice Function to _cancelAuctionSale
+        @param _cancelAuctionSale this function to cancel auction sale during auction  
+     */
     function _cancelAuctionSale(address _nftContractAddress, uint256 _tokenId)
         external
         isNftInAuctionSale(_nftContractAddress, _tokenId)
@@ -321,6 +364,10 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
 
         emit CancelNftAuctionSale(_nftContractAddress, _tokenId, msg.sender);
     }
+    /**
+        @notice Function to settleAuction
+        @param _cancelAuctionSale this function to settle auction sale after end of auction  
+     */
 
     function settleAuction(address _nftContractAddress, uint256 _tokenId)
         external
@@ -350,7 +397,10 @@ contract NFTMarketplace1155 is INFTMarketplace1155, ANFTMarketplace1155 {
             nftContractAuctionSale[_nftContractAddress][_tokenId].nftSeller
         );
     }
-
+      /**
+        @notice Function to withdrawBid
+        @param updateTheBidPrice this function to withdrawBid 
+     */
     function withdrawBid(address _nftContractAddress, uint256 _tokenId)
         external
         isAuctionOver(_nftContractAddress, _tokenId)

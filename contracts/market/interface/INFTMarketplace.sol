@@ -30,7 +30,8 @@ interface INFTMarketplace {
     }
     /**
         @notice struct FixedSale  .
-        @param  FixedSale- is the creator or the owner who is going to sell nft 
+        @param  FixedSale- 
+                nftSeller is the creator or the owner who is going to sell nft 
                 nftBuyer- is the purchase of nft 
                 erc20 - erc20 token addresss 
                 royaltyReciever- is the royalty in case owner or the nft holder going to receive some amount 
@@ -55,7 +56,7 @@ interface INFTMarketplace {
         address _nftContractAddress;
         uint256 _tokenID;
     }
-
+   // events are nothing 
     event NftFixedSale(
         address nftContractAddress,
         address nftSeller,
