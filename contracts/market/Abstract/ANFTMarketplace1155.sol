@@ -360,6 +360,10 @@ abstract contract ANFTMarketplace1155 is INFTMarketplace1155 {
             true
         );
     }
+       /**
+        @notice function _storedNftAuctionDetails  .
+        its a function is to store details of nft 
+       */
 
     function _storedNftAuctionDetails(
         address _nftContractAddress,
@@ -410,7 +414,10 @@ abstract contract ANFTMarketplace1155 is INFTMarketplace1155 {
             _minPrice
         );
     }
-
+       /**
+        @notice function _ownerOf  .
+        its a function is to check owner of nft  
+       */
     function _ownerOf(address _nftContractAddress, uint256 tokenId)
         internal
         view
@@ -419,7 +426,10 @@ abstract contract ANFTMarketplace1155 is INFTMarketplace1155 {
         return
             IERC1155(_nftContractAddress).balanceOf(msg.sender, tokenId) != 0;
     }
-
+       /**
+        @notice function supportsInterface  .
+        function is to check support interface for erc1155  
+       */
     function isERC1155(address _nftContractAddress)
         external
         view
@@ -427,7 +437,10 @@ abstract contract ANFTMarketplace1155 is INFTMarketplace1155 {
     {
         return IERC1155(_nftContractAddress).supportsInterface(IID_IERC1155);
     }
-
+    /**
+        @notice function _nftFixedSaleDetails  .
+        function to store  _nftFixedSaleDetails  
+       */
     function _nftFixedSaleDetails(
         address _nftContractAddress,
         address _erc20,

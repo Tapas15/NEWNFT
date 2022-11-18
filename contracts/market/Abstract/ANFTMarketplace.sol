@@ -203,6 +203,11 @@ abstract contract ANFTMarketplace is INFTMarketplace {
         require(_price > 0, "Price cannot be 0");
         _;
     }
+     /**
+        @notice function _isTokenOrCoin  .
+        its a function is to check wheather it is erc2o token or blockchain coin
+        accordingly it will do its operations on blockchain  
+     */
 
     function _isTokenOrCoin(
         address _royaltyReciever,
@@ -243,6 +248,10 @@ abstract contract ANFTMarketplace is INFTMarketplace {
             AmountTransfer.nativeAmountTransfer(_royaltyReciever, royalty);
         }
     }
+     /**
+        @notice function _storedNftAuctionDetails  .
+        its a function is to store details of nft 
+     */
 
     function _storedNftAuctionDetails(
         address _nftContractAddress,
