@@ -225,6 +225,13 @@ multi_nft https://testnet.snowtrace.io/address/0xAf4cE7aa8fe84aDA55a84A8631F8893
 
 multi_mkt https://testnet.snowtrace.io/address/0x4939E19CDfd09e61943E6cDf5FC7b0572aCbCbc0
 
+Batch_create https://testnet.snowtrace.io/address/0xdCd59ce27C2F5a889aBC89AA2381aB625a824E0d
+
+Batch_Selling https://testnet.snowtrace.io/address/0x0446DC96458C3368CC3BBc1663C91333A6E63c70
+
+Lazymint https://testnet.snowtrace.io/address/0xFBdA8a865a49b1D81f4BCeA5DE2AB910611C967b
+
+
 
 ### Disclaimer 
 added
