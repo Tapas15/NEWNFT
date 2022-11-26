@@ -9,34 +9,30 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-/**
-
- * @title BatchSelling1155for Multiple nft
- * @dev Note its BatchSelling1155 contract for Multiple nft batch sell
- * 
- * 
- */
-
-
 contract BatchSelling1155 {
     using SafeMath for uint256;
-    // using counter to count ids 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-    // struct tupple fixed sale 
+
+    uint256 public makerFee;
+    address public owner;
+
     struct FixedSale {
         address nftSeller;
         address nftBuyer;
         address erc20;
+        address royaltyReciever;
         uint256[] amount;
+        uint256 copies;
         uint256 salePrice;
+        uint256 royalty;
     }
-    // sale info
+
     struct SaleInfo {
         address _nftContractAddress;
         uint256 _tokenID;
     }
-    //Mapping details 
+
     mapping(uint256 => uint256[]) batchIdDetails;
     mapping(address => mapping(uint256 => FixedSale)) nftContractFixedSale;
     mapping(address => mapping(uint256 => uint256)) public nftSaleStatus;
@@ -47,7 +43,7 @@ contract BatchSelling1155 {
     SaleInfo[] fixedSaleNFT;
 
     bytes4 public constant IID_IERC1155 = type(IERC1155).interfaceId;
-    // event to fixed sale
+
     event NftFixedSale(
         address nftContractAddress,
         address nftSeller,
@@ -57,19 +53,19 @@ contract BatchSelling1155 {
         uint256 salePrice,
         uint256 timeOfSale
     );
-    //Cancel event 
+
     event CancelNftFixedSale(
         address nftContractAddress,
         address nftSeller,
         uint256 tokenId
     );
-    // Event to fixed sale price update 
+
     event NftFixedSalePriceUpdated(
         address nftContractAddress,
         uint256 tokenId,
         uint256 updateSalePrice
     );
-    // Event to BuyfromFixed sale
+
     event NftBuyFromFixedSale(
         address nftContractAddress,
         address nftBuyer,
@@ -77,7 +73,12 @@ contract BatchSelling1155 {
         uint256 tokenId,
         uint256 nftBuyPrice
     );
-//Modifier is nft in fixed sale checking 
+
+    modifier checkNFTAmount(uint256[] memory _nftAmount, uint256 _copies) {
+        require(checkAmount(_nftAmount, _copies), "nftAmount not correct");
+        _;
+    }
+
     modifier isNftInFixedSale(address _nftContractAddress, uint256 _tokenId) {
         require(
             nftSaleStatus[_nftContractAddress][_tokenId] == 1,
@@ -85,7 +86,7 @@ contract BatchSelling1155 {
         );
         _;
     }
-// is Sale is startby owner 
+
     modifier isSaleStartByOwner(
         address _nftContractAddress,
         uint256[] memory _batchId
@@ -96,7 +97,7 @@ contract BatchSelling1155 {
         );
         _;
     }
-    // is Sale reset by owner 
+
     modifier isSaleResetByOwner(address _nftContractAddress, uint256 _tokenId) {
         require(
             msg.sender ==
@@ -105,7 +106,7 @@ contract BatchSelling1155 {
         );
         _;
     }
-// checking is nft  is approved 
+
     modifier isContractApprove(address _nftContractAddress) {
         require(
             IERC1155(_nftContractAddress).isApprovedForAll(
@@ -116,7 +117,17 @@ contract BatchSelling1155 {
         );
         _;
     }
-    // modifier ot buyer price met sell price 
+
+    modifier isCopiesSame(uint256 _copies, uint256[] memory _amount) {
+        (checkCopiesCount(_copies, _amount), "no of copies not match");
+        _;
+    }
+
+    modifier onlyOwner() {
+        require(owner == msg.sender, "Caller is not a owner");
+        _;
+    }
+
     modifier buyPriceMeetSalePrice(
         address _nftContractAddress,
         uint256 _tokenId,
@@ -135,60 +146,71 @@ contract BatchSelling1155 {
         _;
     }
 
+    constructor(address _owner, uint256 _makerFee) {
+        owner = _owner;
+        makerFee = _makerFee;
+    }
+
+    // owner Function
+
+    function setMakerFee(uint256 _makerFee) external onlyOwner {
+        makerFee = _makerFee;
+    }
+
+    function setOwner(address _owner) external onlyOwner {
+        owner = _owner;
+    }
+
     // NFT FIXED SALE
-    //function of fixed sale 
+
     function nftFixedSale(
         address _nftContractAddress,
         address _erc20,
+        address _royaltyReciever,
         uint256[] memory _batchIds,
         uint256[] memory _amount,
+        uint256 _copies,
         uint256 _salePrice,
+        uint256 _royalty,
         bytes memory _data
     )
         external
         isSaleStartByOwner(_nftContractAddress, _batchIds)
         isContractApprove(_nftContractAddress)
         priceGreaterThanZero(_salePrice)
+        isCopiesSame(_copies, _amount)
     {
+        address nftContractAddress = _nftContractAddress;
+        address erc20 = _erc20;
+        address royaltyReciever = _royaltyReciever;
+        uint256[] memory batchIds = _batchIds;
+        uint256[] memory amount = _amount;
+        uint256 copies = _copies;
+        uint256 salePrice = _salePrice;
+        uint256 royalty = _royalty;
+        bytes memory data = _data;
+
         _tokenIds.increment();
         uint256 _tokenId = _tokenIds.current();
 
-        batchIdDetails[_tokenId] = _batchIds;
+        batchIdDetails[_tokenId] = batchIds;
         indexTokenIds[_tokenId] = tokenIdsInfo[msg.sender].length;
         tokenIdsInfo[msg.sender].push(_tokenId);
 
-        nftContractFixedSale[_nftContractAddress][_tokenId] = FixedSale(
-            msg.sender,
-            address(0),
-            _erc20,
-            _amount,
-            _salePrice
-        );
-
-        nftSaleStatus[_nftContractAddress][_tokenId] = 1;
-
-        indexFixedSaleNFT[_nftContractAddress][_tokenId] = fixedSaleNFT.length;
-        fixedSaleNFT.push(SaleInfo(_nftContractAddress, _tokenId));
-
-        IERC1155(_nftContractAddress).safeBatchTransferFrom(
-            msg.sender,
-            address(this),
-            _batchIds,
-            _amount,
-            _data
-        );
-
-        emit NftFixedSale(
-            _nftContractAddress,
-            msg.sender,
-            _erc20,
+        _fixedSale(
+            nftContractAddress,
+            erc20,
+            royaltyReciever,
+            batchIds,
+            amount,
+            copies,
+            salePrice,
+            royalty,
             _tokenId,
-            _amount,
-            _salePrice,
-            block.timestamp
+            data
         );
     }
-    //function of cancel fixed sale
+
     function cancelFixedsale(
         address _nftContractAddress,
         uint256 _tokenId,
@@ -214,7 +236,7 @@ contract BatchSelling1155 {
 
         emit CancelNftFixedSale(_nftContractAddress, msg.sender, _tokenId);
     }
-    //function to updateFixedSale
+
     function updateFixedSalePrice(
         address _nftContractAddress,
         uint256 _tokenId,
@@ -234,11 +256,13 @@ contract BatchSelling1155 {
             _updateSalePrice
         );
     }
-    //Function to buyfrom fixed sale 
+
     function buyFromFixedSale(
         address _nftContractAddress,
         uint256 _tokenId,
         uint256 _amount,
+        uint256 _copies,
+        uint256[] memory _nftAmount,
         bytes memory _data
     )
         external
@@ -246,39 +270,47 @@ contract BatchSelling1155 {
         isNftInFixedSale(_nftContractAddress, _tokenId)
         priceGreaterThanZero(_amount)
         buyPriceMeetSalePrice(_nftContractAddress, _tokenId, _amount)
+        checkNFTAmount(_nftAmount, _copies)
     {
-        uint256[] memory _nftAmount = nftContractFixedSale[_nftContractAddress][
-            _tokenId
-        ].amount;
         address nftContractAddress = _nftContractAddress;
         uint256 tokenID = _tokenId;
+        bytes memory data = _data;
+        uint256 amount = _amount;
+        uint256 copies = _copies;
+        uint256[] memory nftAmount = _nftAmount;
+
+        require(
+            nftContractFixedSale[nftContractAddress][tokenID].copies >= copies,
+            "copies not exist"
+        );
 
         IERC1155(nftContractAddress).safeBatchTransferFrom(
             address(this),
             msg.sender,
             batchIdDetails[tokenID],
-            _nftAmount,
-            _data
+            nftAmount,
+            data
         );
 
-        _checkFixedSale(nftContractAddress, tokenID);
+        _checkFixedSale(nftContractAddress, tokenID, copies);
 
         _isTokenOrCoin(
+            nftContractFixedSale[nftContractAddress][tokenID].royaltyReciever,
             nftContractFixedSale[nftContractAddress][tokenID].nftSeller,
             nftContractFixedSale[nftContractAddress][tokenID].erc20,
             nftContractFixedSale[nftContractAddress][tokenID].salePrice,
-            false
+            nftContractFixedSale[nftContractAddress][tokenID].royalty
         );
 
         emit NftBuyFromFixedSale(
             nftContractAddress,
             msg.sender,
-            _nftAmount,
+            nftAmount,
             tokenID,
-            _amount
+            amount
         );
     }
-    //Function to getfixed sale nft 
+
     function getFixedSaleNFT() external view returns (SaleInfo[] memory) {
         return fixedSaleNFT;
     }
@@ -290,7 +322,16 @@ contract BatchSelling1155 {
     {
         return nftContractFixedSale[_nftContractAddress][_tokenId];
     }
-    //function to return value 
+
+    function getTokenId() external view returns (uint256[] memory) {
+        return tokenIdsInfo[msg.sender];
+    }
+
+    function getCurrentTokenId() external view returns (uint256)
+    {
+       return _tokenIds.current();
+    }
+
     function onERC1155Received(
         address _operator,
         address _from,
@@ -300,7 +341,7 @@ contract BatchSelling1155 {
     ) external pure returns (bytes4) {
         return 0xf23a6e61;
     }
-    //function to return batch value 
+
     function onERC1155BatchReceived(
         address _operator,
         address _from,
@@ -310,20 +351,30 @@ contract BatchSelling1155 {
     ) external pure returns (bytes4) {
         return 0xbc197c81;
     }
-    //function to retrurn token or coin 
+
     function _isTokenOrCoin(
+        address _royaltyReciever,
         address _nftSeller,
         address _erc20,
         uint256 _buyAmount,
-        bool auction
+        uint256 _royalty
     ) internal {
+        uint256 taxAmount = (_buyAmount * makerFee) / uint256(100);
+        uint256 royalty = (_buyAmount * _royalty) / uint256(100);
+
+        uint256 userAmount = _buyAmount - (taxAmount + royalty);
+
         if (_erc20 != address(0)) {
-            _tokenAmountTransfer(_nftSeller, _erc20, _buyAmount);
+            _tokenAmountTransfer(_nftSeller, _erc20, userAmount);
+            _tokenAmountTransfer(owner, _erc20, taxAmount);
+            _tokenAmountTransfer(_royaltyReciever, _erc20, royalty);
         } else {
-            _nativeAmountTransfer(_nftSeller, _buyAmount);
+            _nativeAmountTransfer(_nftSeller, userAmount);
+            _nativeAmountTransfer(owner, taxAmount);
+            _nativeAmountTransfer(_royaltyReciever, royalty);
         }
     }
-    //function to amount transfer 
+
     function _tokenAmountTransfer(
         address _nftSeller,
         address _erc20,
@@ -334,25 +385,63 @@ contract BatchSelling1155 {
             "allowance not enough"
         );
     }
-    //function to amount transfer 
+
     function _nativeAmountTransfer(address _nftSeller, uint256 _buyAmount)
         internal
     {
         (bool success, ) = _nftSeller.call{value: _buyAmount}("");
         require(success, "refund failed");
     }
-    //function to check fixed sell 
-    function _checkFixedSale(address _nftContractAddress, uint256 _tokenId)
-        internal
-    {
-        nftSaleStatus[_nftContractAddress][_tokenId] = 0;
-        delete fixedSaleNFT[(indexFixedSaleNFT[_nftContractAddress][_tokenId])];
 
-        nftContractFixedSale[_nftContractAddress][_tokenId].nftBuyer = msg
-            .sender;
-        delete tokenIdsInfo[msg.sender][(indexTokenIds[_tokenId])];
+    function _checkFixedSale(
+        address _nftContractAddress,
+        uint256 _tokenId,
+        uint256 _copies
+    ) internal {
+        nftContractFixedSale[_nftContractAddress][_tokenId].copies -= _copies;
+
+        if (nftContractFixedSale[_nftContractAddress][_tokenId].copies == 0) {
+            nftSaleStatus[_nftContractAddress][_tokenId] = 0;
+            delete fixedSaleNFT[
+                (indexFixedSaleNFT[_nftContractAddress][_tokenId])
+            ];
+
+            nftContractFixedSale[_nftContractAddress][_tokenId].nftBuyer = msg
+                .sender;
+
+            address userAddress = nftContractFixedSale[_nftContractAddress][
+                _tokenId
+            ].nftSeller;
+            delete tokenIdsInfo[userAddress][(indexTokenIds[_tokenId])];
+        }
     }
-    //function to check owner of nft 
+
+    function checkAmount(uint256[] memory _nftAmount, uint256 _copies)
+        internal
+        pure
+        returns (bool)
+    {
+        for (uint256 i = 0; i < _nftAmount.length; i++) {
+            if (_nftAmount[i] != _copies) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function checkCopiesCount(uint256 _copies, uint256[] memory _amount)
+        internal
+        returns (bool)
+    {
+        for (uint256 i = 0; i < _amount.length; i++) {
+            if (_copies != _amount[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     function _ownerOf(address _nftContractAddress, uint256[] memory _batchId)
         internal
         view
@@ -370,13 +459,60 @@ contract BatchSelling1155 {
 
         return true;
     }
-    // function to nft address
+
     function isERC1155(address _nftContractAddress)
         external
         view
         returns (bool)
     {
         return IERC1155(_nftContractAddress).supportsInterface(IID_IERC1155);
+    }
+
+    function _fixedSale(
+        address _nftContractAddress,
+        address _erc20,
+        address _royaltyReciever,
+        uint256[] memory _batchIds,
+        uint256[] memory _amount,
+        uint256 _copies,
+        uint256 _salePrice,
+        uint256 _royalty,
+        uint256 _tokenId,
+        bytes memory _data
+    ) internal {
+        nftContractFixedSale[_nftContractAddress][_tokenId] = FixedSale(
+            msg.sender,
+            address(0),
+            _erc20,
+            _royaltyReciever,
+            _amount,
+            _copies,
+            _salePrice,
+            _royalty
+        );
+
+        nftSaleStatus[_nftContractAddress][_tokenId] = 1;
+
+        indexFixedSaleNFT[_nftContractAddress][_tokenId] = fixedSaleNFT.length;
+        fixedSaleNFT.push(SaleInfo(_nftContractAddress, _tokenId));
+
+        IERC1155(_nftContractAddress).safeBatchTransferFrom(
+            msg.sender,
+            address(this),
+            _batchIds,
+            _amount,
+            _data
+        );
+
+        emit NftFixedSale(
+            _nftContractAddress,
+            msg.sender,
+            _erc20,
+            _tokenId,
+            _amount,
+            _salePrice,
+            block.timestamp
+        );
     }
 
     receive() external payable {}
