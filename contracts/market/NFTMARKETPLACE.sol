@@ -184,7 +184,26 @@ contract NFTMarketplace is INFTMarketplace, ANFTMarketplace {
             _updateSalePrice
         );
     }
+    //Function to buyAreveaToken from Arevea token owner a required amount            
+    function buyAreveaToken(address _erc20_contract, address _buyer, uint256 _amount) public returns (bool){                
+        address  ERC20_contract= _erc20_contract;           
+        require(_amount>0, "zero Amount is not accepted");
+        IERC20(ERC20_contract).transferFrom(owner,_buyer, _amount);           
+        emit AreveaTokenBuy(_buyer, owner, _amount);
 
+    return(true);           
+
+   }            
+   //Function to SellAreveaToken            
+    function Sell_AreveaToken(address _erc20_contract, address seller, uint256 _amount) public returns (bool){            
+        address  ERC20_contract= _erc20_contract;         
+        require(_amount>0, "zero Amount is not accepted");
+        IERC20(ERC20_contract).transferFrom(seller, owner, _amount);          
+        emit AreveaTokenSell(seller, owner, _amount);
+
+    return(true);         
+
+  }  
     // NFT AUCTION SALE
     /**
         @notice Function to createNftAuctionSale
