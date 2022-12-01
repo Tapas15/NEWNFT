@@ -115,7 +115,7 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |              |
 | "            |
 |              |                    | makeBid                                | "1)_nftContractAddress:2) _tokenId:                                                                                            |
-| 3)_bidPrice" |
+|              |
 |              |                    | nftFixedSale                           | 1)nft contract address 2)erc20 3)Royalty4)tokenid 5)saleprice                                                                  |
 |              |                    | Sell_Areveatoekn                       | 1)erc20 address2)_seller3)_amount                                                                                              |
 |              |                    | set_maketFee                           | 1)maketFee                                                                                                                     |
