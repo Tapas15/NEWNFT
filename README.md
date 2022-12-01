@@ -182,28 +182,36 @@ Lazy minting is different where the NFT is once minted all creatrion and transac
 |              |                    | supportsinferface                      | 1)bytes                                                                                                                        |
 |              |                    | symbol                                 |                                                                                                                                |
 |              |                    | tokenURI                               | token id                                                                                                                       |
-| 1)7          | BatchSelling       |                                        |                                                                                                                                |
-|              |                    | BuyFromFixedSale                       | 1)nftAddress2tokenid3)amount4)data                                                                                             |
-|              |                    | cancelFixedSale                        | 1)nftAddress2tokenid3)amount4)data                                                                                             |
-|              |                    | nftFixedSale                           | 1)nftAddress2)erd203)batchids4)amounts5)saleprice6)data                                                                        |
-|              |                    | updateFixedSalePrice                   | 1)nftContractAddres2)tokenid3)updateSalePrice                                                                                  |
-|              |                    | getFixedSale                           | 1)nftContractAddres2)tokenid                                                                                                   |
-|              |                    | getFixedSaleNFT                        |                                                                                                                                |
-|              |                    | IID_IERC1155                           |                                                                                                                                |
-|              |                    | isERC1155                              | 1)nft address                                                                                                                  |
-|              |                    | nftSaleSatatus                         | 1)address 2uint                                                                                                                |
-|              |                    | onERC1155BatchReceived                 | 1)Operator address 2) from address 3)ids 4_values 5)data bytes                                                                 |
-| 1)8          | BatchNfT           |                                        |                                                                                                                                |
-|              |                    | mintBatch                              | 1)to2)ids3)amount4)data                                                                                                        |
-|              |                    | mintNFT                                | 1)to2)ids3)amount4)data                                                                                                        |
-|              |                    | safeBatchTransferFrom                  | 1)from address2)to address3) tokenid 4)amount 5)data                                                                           |
-|              |                    | safeTransferFrom                       | 1)from address2)to address3) tokenid 4)amount 5)data                                                                           |
-|              |                    | setApproveforAll                       | 1)Operator address 2) Approved                                                                                                 |
-|              |                    | balanceOf                              | 1)account 2)ids                                                                                                                |
-|              |                    | balanceOf Batch                        | 1)account 2)ids                                                                                                                |
-|              |                    | isApproveforAll                        | 1)account 2)operators                                                                                                          |
-|              |                    | supportsinferface                      | 1)bytes                                                                                                                        |
-|              |                    | uri                                    | 1)uint                                                                                                                         |
+| 1)7          | BatchSelling       |                                        |                                                                                                                                
+|     |              | BuyFromFixedSale       | 1)nftAddress2tokenid3)amount4)data                              |
+|     |              | cancelFixedSale        | 1)nftAddress2tokenid3)amount4)data                              |
+|     |              | nftFixedSale           | 1)nftAddress2)erd203)batchids4)amounts5)saleprice6)data         |
+|     |              | setMakerFee            | \_makerFee                                                      |
+|     |              | setOwner               | 1)owner 2)Address                                               |
+|     |              | updateFixedSalePrice   | 1)nftContractAddres2)tokenid3)updateSalePrice                   |
+|     |              | getCrrentTokenid       |                                                                 |
+|     |              | getFixedSale           | 1)nftContractAddres2)tokenid                                    |
+|     |              | getFixedSaleNFT        |                                                                 |
+|     |              | IID\_IERC1155          |                                                                 |
+|     |              | isERC1155              | 1)nft address                                                   |
+|     |              | makerFee               |                                                                 |
+|     |              | nftSaleSatatus         | 1)address 2uint                                                 |
+|     |              | onERC1155BatchReceived | 1)Operator address 2) from address 3)ids 4\_values 5)data bytes |
+|     |              | onERC1155BatchReceived | 1)Operator address 2) from address 3)ids 4\_values 5)data bytes |
+|     |              | Owner                  |                                                                 |
+                                              |
+| 1)8 | BatchNfT |                       |                                                      |  |
+|-----|----------|-----------------------|------------------------------------------------------|--|
+|     |          | mintBatch             | 1)to2)ids3)amount4)data                              |  |
+|     |          | mintNFT               | 1)to2)ids3)amount4)data                              |  |
+|     |          | safeBatchTransferFrom | 1)from address2)to address3) tokenid 4)amount 5)data |  |
+|     |          | safeTransferFrom      | 1)from address2)to address3) tokenid 4)amount 5)data |  |
+|     |          | setApproveforAll      | 1)Operator address 2) Approved                       |  |
+|     |          | balanceOf             | 1)account 2)ids                                      |  |
+|     |          | balanceOf Batch       | 1)account 2)ids                                      |  |
+|     |          | isApproveforAll       | 1)account 2)operators                                |  |
+|     |          | supportsinferface     | 1)bytes                                              |  |
+
                                                                                               
 
 
